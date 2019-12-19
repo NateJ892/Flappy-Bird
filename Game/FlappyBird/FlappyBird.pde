@@ -29,6 +29,6 @@ void keyReleased()
 {
   if (keyCode == ' ')
   {
-    //TODO: Jum Mechanic
+    //TODO: Jump Mechanic
   }
 }
