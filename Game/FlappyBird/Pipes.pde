@@ -11,17 +11,19 @@ class Pipe
     opening[1] = lowerY;
   }
   
-  public void update()
+  public void update(int PlayerHeight)
   {
+    checkCollision(PlayerHeight);
     X -= updateSpeed;
     stroke(255);
     strokeWeight(4);
     line (X, 0, X, opening[0]);
+    line(X, height, X, height-opening[1]);
     strokeWeight(1);
   }
   
-  public void checkCollision(int playerLocation)  //TODO
+  public void checkCollision(int playerLocation)
   {
-    
+    //Check Collision Line/Rect
   }
 }
