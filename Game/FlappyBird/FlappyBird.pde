@@ -10,7 +10,7 @@ void setup()
   for (int i = 0; i < pipes.length; i++)  //Generate Inital Pipes TODO: Create Random Routine
   {
     pipes[i] = new Pipe();
-    pipes[i].init(Spawn, (int)random(height/2), (int)random(height/2, height))));
+    pipes[i].init(Spawn, (int)random(height/2), (int)random(height/2, height));
     Spawn += 340;
   }
 }
