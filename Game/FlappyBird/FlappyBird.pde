@@ -1,35 +1,53 @@
-PVector PlayerPosition;
-Pipe[] pipes = new Pipe[6];
+/**********************************************************************
+* Nathan Johnson                                                      *
+* 7/1/2020                                                            *
+* ICS SOMTHING                                                        *
+* This Program Re-creates The Flappy Bird Game                        *
+* Program Heavily Used Pseudo Code Throught Development For Debuging  *
+**********************************************************************/
+
+private static final float Gravity = 0.25, jumpForce = 1, gravityTicker = 4;  //Constant Gravity On Bird Per Frame
+private float Velocity = 0;
+private int yPosition, playerScore = 0;                                       //Velocity = Bird Up/Down, yPosition stores bird y
+private boolean isAlive = true;                                               //Bird is Alive Boolean used for death screen
 
 void setup()
 {
-  size(1000, 800);
-  PlayerPosition = new PVector(40, width/2);
-  
-  int Spawn = width;
-  for (int i = 0; i < pipes.length; i++)  //Generate Inital Pipes TODO: Create Random Routine
-  {
-    pipes[i] = new Pipe();
-    pipes[i].init(Spawn, (int)random(height/2), (int)random(height/2, height));
-    Spawn += 340;
-  }
+  size(1000, 800);                                                            //1000 x 800 Canvas Size
+  yPosition = height/2;                                                       //Spawn Bird At Half Screen Height
 }
 
 void draw()
 {
-  background(0);
-  fill(255);
+  background(0);                                                              //Background Black
+  fill(255, 0, 0);                                                            //"Bird" filled Red
   
-  for (int i = 0; i < pipes.length; i++)  //Updates Pipes
+  if (isAlive)                                                                //Checks Bird Life
   {
-    pipes[i].update((int)PlayerPosition.y);
+    if (yPosition <= 0 || yPosition >= height) isAlive = false;               //If Bird Is Out Of Bounds, Kills Bird
+    else                                                                      //If NOT Out Of Bounds, Continue
+    {
+      if ((frameCount % gravityTicker) == 0) Velocity -= Gravity;             //Add Constant Of Gravity To Every 4 Frames
+      
+      if (Velocity < 0) yPosition += 1;                                       //If Velocity Is Less-than Or Equal To Zero, Go Down 1 Pixel
+      else if (Velocity > 0) yPosition -= 1;                                  //If Velocity Is Greater-Than Zero Go Up 
+    }
+    
+    circle(20, yPosition, 20);                                                //
+    println(Velocity);
+  }
+  else
+  {
+    fill(255);                                                                //Text Color White
+    textMode(CENTER);                                                         //Text Anchor Center
+    textSize(32);                                                             //Text Size
+    text("You Died!", width/2, height/2);                                     //Display Death Messege
+    textSize(16);                                                             //Half Size Of Header
+    text("Final Score: " + playerScore, width/2, (height/2)+20);              //Present Player With Score
   }
 }
 
-void keyReleased()
+void keyPressed()                                                             //Jump Handler
 {
-  if (keyCode == ' ')
-  {
-    //TODO: Jump Mechanic
-  }
+  if (keyCode == ' ') Velocity += jumpForce;                                  //Jump On Space Inturupt
 }
