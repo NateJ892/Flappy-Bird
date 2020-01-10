@@ -21,9 +21,4 @@ class GameFunctions
     textSize(16);                                                                                    //Half Size Of Header
     text("Final Score: " + playerScore + "\n Click Anywhere To Restart", width/2, (height/2)+20);    //Present Player With Score And Options
   }
-  
-  public void ResetGame()
-  {
-    
-  }
-}
+} 
