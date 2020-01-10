@@ -46,12 +46,14 @@ void draw()
   }
 }
 
-void keyPressed()                                                                                 //Jump Handler
-{
-  if (keyCode == ' ' && Velocity < .25) Velocity += jumpForce;                                    //Jump On Space Inturupt
-}
+void keyPressed()  {  if (keyCode == ' ' && Velocity < .25) Velocity += jumpForce;  }             //Jump On Space Inturupt
 
-void mouseClicked()
-{
-  if (!isAlive) GF.ResetGame();
-}
+void mouseClicked()  
+{  
+  if (!isAlive)
+  {
+    playerScore = 0;
+    Velocity = 0;
+    //Clear Pipes
+  }
+}                                          //Reset If Dead An Mous
