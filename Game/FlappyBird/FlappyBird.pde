@@ -1,6 +1,6 @@
 /**********************************************************************
 * Nathan Johnson                                                      *
-* 7/1/2020                                                            *
+* 10/1/2020                                                            *
 * ICS SOMTHING                                                        *
 * This Program Re-creates The Flappy Bird Game                        *
 * Program Heavily Used Pseudo Code Throught Development For Debuging  *
@@ -34,7 +34,7 @@ void draw()
       if ((frameCount % scoreTicker) == 0) playerScore += 1;                                      //Add To Score Every nth frame
       
       if (Velocity < 0) yPosition += 1;                                                           //If Velocity Is Less-than Or Equal To Zero, Go Down 1 Pixel
-      else if (Velocity > 0) yPosition -= 1;                                                      //If Velocity Is Greater-Than Zero Go Up 
+      else if (Velocity > 0) yPosition -= 1;                                                      //If Velocity Is Greater-Than Zero Go Upwards 
     }
     
     GF.DrawAlive(playerScore);
@@ -56,4 +56,4 @@ void mouseClicked()
     Velocity = 0;
     //Clear Pipes
   }
-}                                          //Reset If Dead An Mous
+}                                                                                                //Reset If Dead And Mouse Was Clicked
