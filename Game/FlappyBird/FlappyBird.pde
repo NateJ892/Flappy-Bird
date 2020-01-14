@@ -1,12 +1,12 @@
 /**********************************************************************
 * Nathan Johnson                                                      *
-* 10/1/2020                                                            *
+* 10/1/2020                                                           *
 * ICS SOMTHING                                                        *
 * This Program Re-creates The Flappy Bird Game                        *
 * Program Heavily Used Pseudo Code Throught Development For Debuging  *
 **********************************************************************/
 
-private static final float Gravity = 0.25, jumpForce = .5;                                        //Constant Gravity On Bird Per Frame
+private static final float Gravity = 0.25, jumpForce = 0.5;                                        //Constant Gravity On Bird Per Frame
 private static final int gravityTicker = 20, scoreTicker = 20;
 private float Velocity = 0;
 private int yPosition, playerScore = 0;                                                           //Velocity = Bird Up/Down, yPosition stores bird y
