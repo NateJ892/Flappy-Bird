@@ -6,18 +6,18 @@
 * Program Heavily Used Pseudo Code Throught Development For Debuging  *
 **********************************************************************/
 
-private static final float Gravity = 0.25, jumpForce = 0.5;                                        //Constant Gravity On Bird Per Frame
+private static final float Gravity = 0.25, jumpForce = 0.5, pipeSpawnRate = 50;                   //Constant Gravity On Bird Per Frame
 private static final int gravityTicker = 20, scoreTicker = 20;
 private float Velocity = 0;
 private int yPosition, playerScore = 0;                                                           //Velocity = Bird Up/Down, yPosition stores bird y
 private boolean isAlive = true;                                                                   //Bird is Alive Boolean used for death screen
-private GameFunctions GF;
+private GameFunctions GF = new GameFunctions();
+private ArrayList<Pipe> pipes = new ArrayList();
 
 void setup()
 {
   size(1000, 800);                                                                                //1000 x 800 Canvas Size
   yPosition = height/2;                                                                           //Spawn Bird At Half Screen Height
-  GF = new GameFunctions();
 }
 
 void draw()
@@ -35,6 +35,16 @@ void draw()
       
       if (Velocity < 0) yPosition += 1;                                                           //If Velocity Is Less-than Or Equal To Zero, Go Down 1 Pixel
       else if (Velocity > 0) yPosition -= 1;                                                      //If Velocity Is Greater-Than Zero Go Upwards 
+      
+      if ((frameCount % pipeSpawnRate) == 0)
+      {
+        pipes.add(new Pipe());
+      }
+      
+      for (int i = 0; i < pipes.size(); i++)
+      {
+        pipes.get(i).update();
+      }
     }
     
     GF.DrawAlive(playerScore);
@@ -54,6 +64,8 @@ void mouseClicked()
   {
     playerScore = 0;
     Velocity = 0;
-    //Clear Pipes
+    
+    for (int i = 0; i < pipes.size(); i++) pipes.remove(i);
+    pipes.trimToSize();
   }
 }                                                                                                //Reset If Dead And Mouse Was Clicked
