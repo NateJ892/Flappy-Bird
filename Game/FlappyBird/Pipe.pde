@@ -1,22 +1,27 @@
 class Pipe
 {
-  private int X, upperPipe, lowerPipe;
-  private int lowerYOffset = 40;
+  float x, top, bottom, w = 40;
   
   Pipe()
   {
-    X = width;
-    upperPipe = (int)random(1, height-lowerYOffset);
-    lowerPipe = upperPipe+lowerYOffset;
+    x = width + 50;
+    top = random(100, height/2);
+    bottom = random(100, height/2);
   }
   
-  void update()
+  boolean checkCollision(Bird TEMP)
   {
-    strokeWeight(3);
-    stroke(255);
+    return false;
+  }
+  
+  void updatePipe()
+  {
+    x -= 2;
     
-    line (X, upperPipe, X, lowerPipe);
-    X -= 1;
-    strokeWeight(1);
+    stroke(255);
+    fill(255);
+    
+    rect(x, 0, w, top);
+    rect(x, height - bottom, w, bottom);
   }
 }
