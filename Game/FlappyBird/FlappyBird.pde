@@ -49,7 +49,7 @@ void draw()
     
     textSize(16);
     fill(255);
-    text("Score: " + Score, 10, 15);
+    text("Score: " + Score + "\nFrameRate: " + round(frameRate), 10, 15);
     b.updateBird();
   }
   else 
