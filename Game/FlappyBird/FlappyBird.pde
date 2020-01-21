@@ -1,71 +1,34 @@
-/**********************************************************************
-* Nathan Johnson                                                      *
-* 10/1/2020                                                           *
-* ICS SOMTHING                                                        *
-* This Program Re-creates The Flappy Bird Game                        *
-* Program Heavily Used Pseudo Code Throught Development For Debuging  *
-**********************************************************************/
-
-private static final float Gravity = 0.25, jumpForce = 0.5, pipeSpawnRate = 50;                   //Constant Gravity On Bird Per Frame
-private static final int gravityTicker = 20, scoreTicker = 20;
-private float Velocity = 0;
-private int yPosition, playerScore = 0;                                                           //Velocity = Bird Up/Down, yPosition stores bird y
-private boolean isAlive = true;                                                                   //Bird is Alive Boolean used for death screen
-private GameFunctions GF = new GameFunctions();
-private ArrayList<Pipe> pipes = new ArrayList();
+Bird b;
+int Score = 0;
+ArrayList<Pipe> pipes = new ArrayList();
+boolean jumping = false, alive = true;
+PVector gravity = new PVector(0, 0.5);
 
 void setup()
 {
-  size(1000, 800);                                                                                //1000 x 800 Canvas Size
-  yPosition = height/2;                                                                           //Spawn Bird At Half Screen Height
+  size(1000, 800);
+  b = new Bird();
+  pipes.add(new Pipe());
 }
 
 void draw()
 {
-  background(0);                                                                                  //Background Black
-  fill(255, 0, 0);                                                                                //"Bird" filled Red
+  background(0);
   
-  if (isAlive)                                                                                    //Checks Bird Life
+  if (frameCount % 80 == 0) pipes.add(new Pipe());
+  if (b.position.y < 0 || b.position.y > height) alive = false;
+  
+  if (keyPressed)
   {
-    if (yPosition <= 0 || yPosition >= height) isAlive = false;                                   //If Bird Is Out Of Bounds, Kills Bird
-    else                                                                                          //If NOT Out Of Bounds, Continue
-    {
-      if ((frameCount % gravityTicker) == 0 && Velocity > -0.25) Velocity -= Gravity;             //Add Constant Gravity To Every 4 Frames
-      if ((frameCount % scoreTicker) == 0) playerScore += 1;                                      //Add To Score Every nth frame
-      
-      if (Velocity < 0) yPosition += 1;                                                           //If Velocity Is Less-than Or Equal To Zero, Go Down 1 Pixel
-      else if (Velocity > 0) yPosition -= 1;                                                      //If Velocity Is Greater-Than Zero Go Upwards 
-      
-      if ((frameCount % pipeSpawnRate) == 0)
-      {
-        pipes.add(new Pipe());
-      }
-      
-      for (int i = 0; i < pipes.size(); i++)
-      {
-        pipes.get(i).update();
-      }
-    }
-    
-    GF.DrawAlive(playerScore);
-    println(Velocity);
+    PVector up = new PVector(0, -5);
+    b.addForceToBird(up);
   }
-  else
+  
+  for (int i = 0; i < pipes.size(); i++)
   {
-    GF.DrawDeath();
+    Pipe TempPipe = pipes.get(i);
+    TempPipe.updatePipe();
   }
+  b.updateBird();
+
 }
-
-void keyPressed()  {  if (keyCode == ' ' && Velocity < .25) Velocity += jumpForce;  }             //Jump On Space Inturupt
-
-void mouseClicked()  
-{  
-  if (!isAlive)
-  {
-    playerScore = 0;
-    Velocity = 0;
-    
-    for (int i = 0; i < pipes.size(); i++) pipes.remove(i);
-    pipes.trimToSize();
-  }
-}                                                                                                //Reset If Dead And Mouse Was Clicked
