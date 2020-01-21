@@ -60,16 +60,17 @@ void draw()
     text("You Died!", width/2, (height/2)-40);
     textSize(32);
     text("Score: " + Score + "\nPress Space To Respawn", width/2, height/2);
+    
     if (keyPressed)
     {
-      if (key == ' ')
+      if (key == ENTER)
       {
         alive = true;
         Score = 0;
         pipes.clear();
+        b.position = new PVector(50, height/2);
       }
     }
-    
   }
   pop();
 }
