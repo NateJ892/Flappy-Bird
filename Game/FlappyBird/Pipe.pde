@@ -33,7 +33,7 @@ class Pipe
     else if (testX > x+w) testX = x+w;
     
     if(testY < height - bottom) testY = height-bottom;
-    else if (testY > bottom) testY = height;                              //TODO: Fix Collision Check
+    else if (testY > (height-bottom)+bottom) testY = (height-bottom)+bottom;
     
     distX = TEMP.position.x-testX;
     distY = TEMP.position.y-testY;
